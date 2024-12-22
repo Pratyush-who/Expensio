@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 
 class Transaction_List extends StatelessWidget {
   final List<Transaction> transactions;
-  const Transaction_List(this.transactions, {super.key});
+  final Function deleteTx;
+
+  const Transaction_List(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
@@ -17,57 +19,64 @@ class Transaction_List extends StatelessWidget {
                   'No data inputted yet..!!',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                Container(height: 280,
-                child: Image.asset('assets/images/removebg.png', fit: BoxFit.cover,)),
+                SizedBox(
+                  height: 290,
+                  child: Image.asset(
+                    'assets/images/removebg.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ],
             )
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColorDark,
-                            width: 3,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          '\$${transactions[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                        ),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 5, horizontal: 5), // Margin for spacing
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.all(20), // Padding for card content
+                    leading: Container(
+                      width: 60, // Set the width of the circle
+                      height: 60, // Set the height of the circle
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transactions[index].title,
-                            style: const TextStyle(
+                      child: Center(
+                        child: FittedBox(
+                          child: Text(
+                            '\$${transactions[index].amount.toStringAsFixed(2)}',
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 16, // Adjust the font size to fit inside the circle
+                              color: Theme.of(context).primaryColorLight,
                             ),
                           ),
-                          Text(
-                            DateFormat(DateFormat.YEAR_MONTH_DAY)
-                                .format(transactions[index].date),
-                            style: const TextStyle(
-                              color: Color.fromRGBO(27, 18, 17, 0.466),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ],
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMd().format(transactions[index].date),
+                      style: const TextStyle(
+                        color: Color.fromRGBO(27, 18, 17, 0.466),
+                      ),
+                    ),
+                    trailing: IconButton(
+                        onPressed: () => deleteTx(transactions[index].id),
+                        icon: Icon(
+                          Icons.delete_rounded,
+                          size: 30,
+                          color: Colors.red,
+                        )),
                   ),
                 );
               },

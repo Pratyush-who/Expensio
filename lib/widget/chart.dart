@@ -6,11 +6,6 @@ import '../MODEL/transaction.dart';
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransaction;
 
-// DateTime.now().subtract(Duration(days: index)):
-// Calculates the date for index days ago. For example:
-// If index = 0, it represents today.
-// If index = 1, it represents yesterday.
-
   const Chart(this.recentTransaction, {super.key});
 
   List<Map<String, Object>> get groupedTransactionValues {
@@ -31,7 +26,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totsum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {

@@ -1,4 +1,3 @@
-// main.dart
 import 'package:flutter/material.dart';
 import 'MODEL/transaction.dart';
 import 'widget/chart.dart';
@@ -6,6 +5,7 @@ import 'widget/new_transaction.dart';
 import 'widget/transaction_list.dart';
 
 void main() => runApp(const MyApp());
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.purple,
         fontFamily: 'OldLondon',
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
@@ -74,11 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: txTitle,
-        date: DateTime.now(),
+        date: chosenDate,
         amount: txAmount);
 
     setState(() {
@@ -96,6 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  void deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((tx) => tx.id == id);
+    });
   }
 
   @override
@@ -116,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransaction),
-            Transaction_List(_userTransaction),
+            Transaction_List(_userTransaction,deleteTransaction),
           ],
         ),
       ),
