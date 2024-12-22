@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransaction),
-            Transaction_List(_userTransaction,deleteTransaction),
+            Transaction_List(_userTransaction, deleteTransaction),
           ],
         ),
       ),
@@ -131,6 +131,28 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).primaryColorLight,
         onPressed: () => startAddNewTransaction(context),
         child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        shape: const CircularNotchedRectangle(), 
+        notchMargin: 6.0,
+        child: SizedBox(
+          height: 60, 
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Expensio-Your Personal Expense Tracker!!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
