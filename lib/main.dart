@@ -130,15 +130,16 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColorLight,
         onPressed: () => startAddNewTransaction(context),
+        shape: CircleBorder(),
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
-        shape: const CircularNotchedRectangle(), 
+        shape: const CircularNotchedRectangle(),
         notchMargin: 6.0,
         child: SizedBox(
-          height: 60, 
+          height: 60,
           child: Center(
             child: Container(
               padding: const EdgeInsets.only(top: 20),

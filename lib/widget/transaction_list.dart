@@ -7,11 +7,10 @@ class Transaction_List extends StatelessWidget {
   final Function deleteTx;
 
   const Transaction_List(this.transactions, this.deleteTx);
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320,
+      height: 520,
       child: transactions.isEmpty
           ? Column(
               children: [
@@ -32,27 +31,25 @@ class Transaction_List extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
                 return Card(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 5, horizontal: 5), // Margin for spacing
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   child: ListTile(
-                    contentPadding:
-                        const EdgeInsets.all(20), // Padding for card content
+                    contentPadding: const EdgeInsets.all(10),
                     leading: Container(
-                      width: 60, // Set the width of the circle
-                      height: 60, // Set the height of the circle
+                      width: 80, 
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(
+                            15), 
                       ),
                       child: Center(
-                        child: FittedBox(
-                          child: Text(
-                            '\$${transactions[index].amount.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16, // Adjust the font size to fit inside the circle
-                              color: Theme.of(context).primaryColorLight,
-                            ),
+                        child: Text(
+                          '\$${transactions[index].amount.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         ),
                       ),
