@@ -9,9 +9,7 @@ class Transaction_List extends StatelessWidget {
   const Transaction_List(this.transactions, this.deleteTx);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 520,
-      child: transactions.isEmpty
+    return transactions.isEmpty
           ? Column(
               children: [
                 Text(
@@ -36,12 +34,11 @@ class Transaction_List extends StatelessWidget {
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(10),
                     leading: Container(
-                      width: 80, 
+                      width: 80,
                       height: 50,
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(
-                            15), 
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       child: Center(
                         child: Text(
@@ -77,7 +74,6 @@ class Transaction_List extends StatelessWidget {
                   ),
                 );
               },
-            ),
     );
   }
 }

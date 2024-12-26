@@ -48,7 +48,6 @@ class Chart extends StatelessWidget {
             final spendingPercentage = totalSpending == 0
                 ? 0.0
                 : (data['amount'] as double? ?? 0.0) / totalSpending;
-
             return Flexible(
               fit: FlexFit.tight,
               child: ChartBar(

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'MODEL/transaction.dart';
+import 'package:flutter/services.dart';
 import 'widget/chart.dart';
 import 'widget/new_transaction.dart';
 import 'widget/transaction_list.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,26 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransaction = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Jordans',
-    //   amount: 69,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'PS5',
-    //   amount: 99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't3',
-    //   title: 'Cohort',
-    //   amount: 10,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  final List<Transaction> _userTransaction = [];
 
   List<Transaction> get _recentTransaction {
     return _userTransaction.where((tx) {
@@ -108,23 +97,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: const Text('EXPENSIO'),
+      backgroundColor: Theme.of(context).primaryColorDark,
+      actions: [
+        IconButton(
+          onPressed: () => startAddNewTransaction(context),
+          icon: const Icon(Icons.add),
+        ),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('EXPENSIO'),
-        backgroundColor: Theme.of(context).primaryColorDark,
-        actions: [
-          IconButton(
-            onPressed: () => startAddNewTransaction(context),
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransaction),
-            Transaction_List(_userTransaction, deleteTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.25,
+                child: Chart(_recentTransaction)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.65,
+                child: Transaction_List(_userTransaction, deleteTransaction)),
           ],
         ),
       ),
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 6.0,
         child: SizedBox(
-          height: 60,
+          height: 40,
           child: Center(
             child: Container(
               padding: const EdgeInsets.only(top: 20),
