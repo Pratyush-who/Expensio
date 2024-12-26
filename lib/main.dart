@@ -7,7 +7,7 @@ import 'widget/transaction_list.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-    SystemChrome.setPreferredOrientations([
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch, 
           children: [
             Container(
                 height: (MediaQuery.of(context).size.height -
